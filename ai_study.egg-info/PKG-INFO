@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: ai-study
+Version: 0.0.1
+Summary: ai 学习记录
+Requires-Python: >=3.12
+Requires-Dist: requests
+Requires-Dist: jupyter
+Requires-Dist: openai
+Requires-Dist: python-dotenv

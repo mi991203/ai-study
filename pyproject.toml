@@ -1,0 +1,15 @@
+[project]
+name = "ai-study"
+version = "0.0.1"
+description = "ai 学习记录"
+requires-python = ">=3.12"
+dependencies = [
+    "requests",
+    "jupyter",
+    "openai",
+    "python-dotenv"
+]
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
