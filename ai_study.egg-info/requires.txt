@@ -2,3 +2,8 @@ requests
 jupyter
 openai
 python-dotenv
+langchain
+langchain_openai
+langchain-deepseek
+pydantic
+langgraph

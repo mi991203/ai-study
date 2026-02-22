@@ -1,26 +1,49 @@
-import os
 from dotenv import load_dotenv
-from openai import OpenAI
-from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam
-
 load_dotenv()
 
-llm = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_BASE_URL")
-)
-response = llm.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        ChatCompletionSystemMessageParam(role="system", content="You are a useful coder"),
-        ChatCompletionUserMessageParam(role="user", content="Please write quick sort code"),
-        ChatCompletionAssistantMessageParam(role="assistant", content="Please generate by python")
-    ],
-    max_tokens=1024,
-    temperature=0.7,
-    stream=True
-)
+from langgraph.checkpoint.memory import InMemorySaver
+in_memory_server = InMemorySaver()
 
-for chunk in response:
-    if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta.content, end="", flush=True)
+from langchain.agents import create_agent
+from langchain_deepseek import ChatDeepSeek
+llm = ChatDeepSeek(model="deepseek-chat")
+agent = create_agent(model=llm,checkpointer=in_memory_server)
+response = agent.invoke(
+    {
+        "messages": [
+            {
+                "role": "user",
+                "content": "Hi,My name is Bob"
+            }
+        ]
+    },
+    {
+        "configurable": {
+            "thread_id": 1
+        }
+    }
+)
+from langchain.messages import AIMessage
+for message in response.get("messages"):
+    if isinstance(message, AIMessage):
+        print(f"第一次对话结果:{message.content}")
+
+response = agent.invoke(
+    {
+        "messages": [
+            {
+                "role": "user",
+                "content": "What am my name?"
+            }
+        ]
+    },
+    {
+        
+        "configurable": {
+            "thread_id": 1
+        }
+    }
+)
+for message in response.get("messages"):
+    if isinstance(message, AIMessage):
+        print(f"第二次对话结果:{message.content}")

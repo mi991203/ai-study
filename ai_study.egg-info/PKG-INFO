@@ -7,3 +7,8 @@ Requires-Dist: requests
 Requires-Dist: jupyter
 Requires-Dist: openai
 Requires-Dist: python-dotenv
+Requires-Dist: langchain
+Requires-Dist: langchain_openai
+Requires-Dist: langchain-deepseek
+Requires-Dist: pydantic
+Requires-Dist: langgraph

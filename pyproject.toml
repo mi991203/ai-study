@@ -7,7 +7,12 @@ dependencies = [
     "requests",
     "jupyter",
     "openai",
-    "python-dotenv"
+    "python-dotenv",
+    "langchain",
+    "langchain_openai",
+    "langchain-deepseek",
+    "pydantic",
+    "langgraph"
 ]
 
 [build-system]
